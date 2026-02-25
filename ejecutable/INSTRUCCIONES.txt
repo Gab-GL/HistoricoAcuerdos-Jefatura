@@ -1,0 +1,4 @@
+INSTRUCCIONES
+1- instalar la base de datos (mariadb)
+2- modificar el archivo "application.properties" para hacer la conexión con la base de datos
+3- ingresar con usuario "jefatura" y contraseña "ico8080"
