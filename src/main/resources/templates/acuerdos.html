@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Acuerdos</title>
+</head>
+<body>
+<div th:replace="fragments/menu :: body"></div>
+<link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+
+<h1>Gestión de Acuerdos</h1>
+
+<!-- ===================== -->
+<!-- 1. FORMULARIO ALTA -->
+<!-- ===================== -->
+<h2>Nuevo acuerdo</h2>
+
+<form th:action="@{/acuerdos/guardar}" method="post" th:object="${acuerdo}">
+    <input type="text" th:field="*{persona}" required placeholder="Persona">
+    <input type="text" th:field="*{area}" required placeholder="Area">
+    <input type="text" th:field="*{asunto}" required placeholder="Asunto">
+    <input type="date" th:field="*{fecha}" required placeholder="Fecha">
+    <button type="submit">Registrar</button>
+</form>
+<!-- ===================== -->
+<!-- 2. FORMULARIO BÚSQUEDA -->
+<!-- ===================== -->
+<h2>Buscar acuerdos</h2>
+
+<form method="get" th:action="@{/acuerdos}">
+    <input type="text" name="persona" placeholder="Persona">
+    <input type="text" name="area" placeholder="Área">
+    <input type="text" name="asunto" placeholder="Asunto">
+    <input type="date" name="fecha">
+    <button type="submit">Buscar</button>
+</form>
+
+<!-- ===================== -->
+<!-- 3. TABLA RESULTADOS -->
+<!-- ===================== -->
+<h2>Resultados</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Persona</th>
+        <th>Área</th>
+        <th>Asunto</th>
+        <th>Fecha</th>
+        <th>Hash</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="a : ${lista}">
+        <form th:action="@{/acuerdos/guardar}" method="post">
+
+            <input type="hidden" name="idAcuerdo" th:value="${a.idAcuerdo}">
+            <input type="hidden" name="hash" th:value="${a.hash}">
+
+            <td>
+                <input type="text" name="persona"
+                       th:value="${a.persona}" disabled>
+            </td>
+
+            <td>
+                <input type="text" name="area"
+                       th:value="${a.area}" disabled>
+            </td>
+
+            <td>
+                <textarea name="asunto" disabled
+                          th:text="${a.asunto}"></textarea>
+            </td>
+
+            <td>
+                <input type="date" name="fecha"
+                       th:value="${a.fecha}" disabled>
+            </td>
+
+            <td th:text="${a.hash}"></td>
+
+            <td>
+                <button type="button" onclick="habilitarEdicion(this)">
+                    Editar
+                </button>
+
+                <button type="submit" style="display:none">
+                    Guardar
+                </button>
+
+                <a th:href="@{/acuerdos/eliminar/{id}(id=${a.idAcuerdo})}"
+                   onclick="return confirm('¿Eliminar este acuerdo?')">
+                    Eliminar
+                </a>
+            </td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+
+<!-- ===================== -->
+<!-- 4. SCRIPT EDICIÓN -->
+<!-- ===================== -->
+<script>
+    function habilitarEdicion(boton) {
+        const fila = boton.closest("tr");
+        const campos = fila.querySelectorAll("input, textarea");
+
+        campos.forEach(campo => {
+            if (campo.type !== "hidden") {
+                campo.disabled = false;
+            }
+        });
+
+        boton.style.display = "none";
+        fila.querySelector("button[type='submit']").style.display = "inline";
+    }
+</script>
+
+</body>
+</html>

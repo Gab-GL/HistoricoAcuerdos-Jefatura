@@ -1,0 +1,232 @@
+/* ==========================
+   RESET BÁSICO
+   ========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================
+   ESTILO GENERAL
+   ========================== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 15px;
+    color: #1f2933;
+}
+
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+/* ==========================
+   CONTENEDORES
+   ========================== */
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ==========================
+   NAVEGACIÓN
+   ========================== */
+
+.nav {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    background-color: #1e40af;
+}
+
+/* ==========================
+   FORMULARIOS
+   ========================== */
+
+form {
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ==========================
+   BOTONES
+   ========================== */
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-guardar {
+    background-color: #16a34a;
+    color: white;
+}
+
+.btn-guardar:hover {
+    background-color: #15803d;
+}
+
+.btn-buscar {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-buscar:hover {
+    background-color: #1e40af;
+}
+
+.btn-editar {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #d97706;
+}
+
+.btn-eliminar {
+    background-color: #dc2626;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #b91c1c;
+}
+
+/* ==========================
+   TABLAS
+   ========================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+thead {
+    background-color: #e5e7eb;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+tbody tr:hover {
+    background-color: #eef2ff;
+}
+
+/* ==========================
+   ACCIONES EN TABLA
+   ========================== */
+
+.acciones {
+    display: flex;
+    gap: 8px;
+}
+
+/* ==========================
+   MENSAJES
+   ========================== */
+
+.mensaje {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.mensaje-exito {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.mensaje-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* ==========================
+   RESPONSIVE
+   ========================== */
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+    }
+
+    table {
+        font-size: 13px;
+    }
+}

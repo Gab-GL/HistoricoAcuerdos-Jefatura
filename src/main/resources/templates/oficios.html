@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+<div th:replace="fragments/menu :: body"></div>
+
+
+<h1>Gestión de Oficios</h1>
+
+<!-- ===================== -->
+<!-- 1. FORMULARIO ALTA -->
+<!-- ===================== -->
+<h2>Nuevo Oficio</h2>
+
+<form th:action="@{/oficios/guardar}" th:object="${oficio}" method="post">
+
+    <input type="hidden" th:field="*{idOficio}">
+    <input type="text" th:field="*{persona}" required placeholder="Persona">
+    <input type="text" th:field="*{area}" required placeholder="Area">
+    <input type="text" th:field="*{asunto}" required placeholder="Asunto">
+    <input type="date" th:field="*{fecha}" required>
+    <button type="submit">Guardar</button>
+</form>
+<h2>Buscar oficios</h2>
+
+<form method="get" th:action="@{/oficios}">
+    <input type="text" name="persona" placeholder="Persona">
+    <input type="text" name="area" placeholder="Area">
+    <input type="text" name="asunto" placeholder="Asunto">
+    <input type="date" name="fecha">
+    <button type="submit">Buscar</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Persona</th>
+        <th>Área</th>
+        <th>Asunto</th>
+        <th>Fecha</th>
+        <th>Hash</th>
+        <th>Acciones</th>
+    </tr>
+
+    <tr th:each="o : ${lista}">
+        <form th:action="@{/oficios/guardar}" method="post">
+
+            <input type="hidden" name="idOficio" th:value="${o.idOficio}">
+            <input type="hidden" name="hash" th:value="${o.hash}">
+
+            <td>
+                <input type="text" name="persona"
+                       th:value="${o.persona}"
+                       disabled>
+            </td>
+
+            <td>
+                <input type="text" name="area"
+                       th:value="${o.area}"
+                       disabled>
+            </td>
+
+            <td>
+                <textarea name="asunto" disabled
+                          th:text="${o.asunto}"></textarea>
+            </td>
+
+            <td>
+                <input type="date" name="fecha"
+                       th:value="${o.fecha}"
+                       disabled>
+            </td>
+
+            <td th:text="${o.hash}"></td>
+
+            <td>
+                <button type="button" onclick="habilitarEdicion(this)">
+                    Editar
+                </button>
+
+                <button type="submit" style="display:none">
+                    Guardar
+                </button>
+
+                <a th:href="@{/oficios/eliminar/{id}(id=${o.idOficio})}"
+                   onclick="return confirm('¿Eliminar este oficio?')">
+                    Eliminar
+                </a>
+            </td>
+        </form>
+    </tr>
+</table>
+
+
+</body>
+</html>
+
+<script>
+    function habilitarEdicion(boton) {
+
+        const fila = boton.closest("tr");
+        const inputs = fila.querySelectorAll("input, textarea");
+
+        inputs.forEach(campo => {
+            if (campo.type !== "hidden") {
+                campo.disabled = false;
+            }
+        });
+
+        boton.style.display = "none";
+        fila.querySelector("button[type='submit']").style.display = "inline";
+    }
+</script>
